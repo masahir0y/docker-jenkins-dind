@@ -1,0 +1,27 @@
+# Jenkins (support Docker-in-Docker)
+#
+# Usage:
+#  docker-compose up -d
+#
+version: '3.9'
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jenkins
+    privileged: true
+    restart: always
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - type: volume
+        source: home
+        target: /var/jenkins_home
+      - type: volume
+        source: docker
+        target: /var/lib/docker
+volumes:
+  home:
+  docker:
